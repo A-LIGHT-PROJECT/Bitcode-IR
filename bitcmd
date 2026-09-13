@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "[a] - compile VM | [b] - compile linker"
+echo
+read -n 1 -p "input: " userinput
+
+vmpath="bitcode_c/bitcode_vm"
+linkerpath="bitcode_c/bitcode_linker"
+
+if [[ $userinput == "a" ]]; then
+	gcc -fsyntax-only -G -Wall -Wextra -Werror -I ${vmpath}/include -c ${vmpath}/bitcode.c
+	read -n 1 -p "safe [y]: " userinput
+	if [[ $userinput != "y" ]]; then
+		exit 0
+	fi
+	gcc -Wall -Wextra -Werror -I ${vmpath}/include -c ${vmpath}/bitcode.c -o bitcodemain.o
+fi
